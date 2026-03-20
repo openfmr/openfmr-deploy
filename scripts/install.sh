@@ -32,16 +32,16 @@ fail()    { echo -e "${RED}[FAIL]${NC}  $*"; }
 
 # ── Repository list ─────────────────────────────────────────────────────────
 # Replace "YourOrg" with your actual GitHub organization or user.
-declare -A REPOS=(
-  [openfmr-core]="https://github.com/YourOrg/openfmr-core.git"
-  [openfmr-module-cr]="https://github.com/YourOrg/openfmr-module-cr.git"
-  [openfmr-module-hfr]="https://github.com/YourOrg/openfmr-module-hfr.git"
-  [openfmr-module-ts]="https://github.com/YourOrg/openfmr-module-ts.git"
-  [openfmr-module-shr]="https://github.com/YourOrg/openfmr-module-shr.git"
-  [openfmr-module-lmis]="https://github.com/YourOrg/openfmr-module-lmis.git"
-  [openfmr-admin-ui]="https://github.com/YourOrg/openfmr-admin-ui.git"
-  [openfmr-clinical-ui]="https://github.com/YourOrg/openfmr-clinical-ui.git"
-  [openfmr-operations-ui]="https://github.com/YourOrg/openfmr-operations-ui.git"
+REPOS=(
+  "openfmr-core:https://github.com/YourOrg/openfmr-core.git"
+  "openfmr-module-cr:https://github.com/YourOrg/openfmr-module-cr.git"
+  "openfmr-module-hfr:https://github.com/YourOrg/openfmr-module-hfr.git"
+  "openfmr-module-ts:https://github.com/YourOrg/openfmr-module-ts.git"
+  "openfmr-module-shr:https://github.com/YourOrg/openfmr-module-shr.git"
+  "openfmr-module-lmis:https://github.com/YourOrg/openfmr-module-lmis.git"
+  "openfmr-admin-ui:https://github.com/YourOrg/openfmr-admin-ui.git"
+  "openfmr-clinical-ui:https://github.com/YourOrg/openfmr-clinical-ui.git"
+  "openfmr-operations-ui:https://github.com/YourOrg/openfmr-operations-ui.git"
 )
 
 # ── Main ─────────────────────────────────────────────────────────────────────
@@ -59,8 +59,9 @@ CLONED=0
 SKIPPED=0
 FAILED=0
 
-for REPO_NAME in "${!REPOS[@]}"; do
-  REPO_URL="${REPOS[$REPO_NAME]}"
+for ENTRY in "${REPOS[@]}"; do
+  REPO_NAME="${ENTRY%%:*}"
+  REPO_URL="${ENTRY#*:}"
 
   if [[ -d "${PROJECT_ROOT}/${REPO_NAME}" ]]; then
     warn "${REPO_NAME} already exists — skipping."
