@@ -33,15 +33,15 @@ fail()    { echo -e "${RED}[FAIL]${NC}  $*"; }
 # ── Repository list ─────────────────────────────────────────────────────────
 # Replace "YourOrg" with your actual GitHub organization or user.
 REPOS=(
-  "openfmr-core:https://github.com/YourOrg/openfmr-core.git"
-  "openfmr-module-cr:https://github.com/YourOrg/openfmr-module-cr.git"
-  "openfmr-module-hfr:https://github.com/YourOrg/openfmr-module-hfr.git"
-  "openfmr-module-ts:https://github.com/YourOrg/openfmr-module-ts.git"
-  "openfmr-module-shr:https://github.com/YourOrg/openfmr-module-shr.git"
-  "openfmr-module-lmis:https://github.com/YourOrg/openfmr-module-lmis.git"
-  "openfmr-admin-ui:https://github.com/YourOrg/openfmr-admin-ui.git"
-  "openfmr-clinical-ui:https://github.com/YourOrg/openfmr-clinical-ui.git"
-  "openfmr-operations-ui:https://github.com/YourOrg/openfmr-operations-ui.git"
+  "openfmr-core:https://github.com/openfmr/openfmr-core.git"
+  "openfmr-module-cr:https://github.com/openfmr/openfmr-module-cr.git"
+  "openfmr-module-hfr:https://github.com/openfmr/openfmr-module-hfr.git"
+  "openfmr-module-ts:https://github.com/openfmr/openfmr-module-ts.git"
+  "openfmr-module-shr:https://github.com/openfmr/openfmr-module-shr.git"
+  "openfmr-module-lmis:https://github.com/openfmr/openfmr-module-lmis.git"
+  "openfmr-admin-ui:https://github.com/openfmr/openfmr-admin-ui.git"
+  "openfmr-clinical-ui:https://github.com/openfmr/openfmr-clinical-ui.git"
+  "openfmr-operations-ui:https://github.com/openfmr/openfmr-operations-ui.git"
 )
 
 # ── Main ─────────────────────────────────────────────────────────────────────
