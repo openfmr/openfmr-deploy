@@ -47,6 +47,7 @@ STACKS=(
   "openfmr-admin-ui:Admin UI"
   "openfmr-module-lmis:Logistics Management"
   "openfmr-module-shr:Shared Health Record"
+  "openfmr-module-hwr:Health Worker Registry"
   "openfmr-module-ts:Terminology Service"
   "openfmr-module-hfr:Health Facility Registry"
   "openfmr-module-cr:Client Registry"

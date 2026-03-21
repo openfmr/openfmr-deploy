@@ -101,6 +101,7 @@ MODULES=(
   "openfmr-module-cr:Client Registry"
   "openfmr-module-hfr:Health Facility Registry"
   "openfmr-module-ts:Terminology Service"
+  "openfmr-module-hwr:Health Worker Registry"
   "openfmr-module-shr:Shared Health Record"
   "openfmr-module-lmis:Logistics Management"
 )
