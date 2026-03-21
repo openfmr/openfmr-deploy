@@ -16,7 +16,7 @@ ehthumbs.db
 Thumbs.db
 
 #remove the .env.global from git
-.env.global
+.env.*
 
 # Agent memory/skills files (local only)
 .agents/
