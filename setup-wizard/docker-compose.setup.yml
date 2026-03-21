@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  setup-api:
+    build: backend
+    container_name: openfmr-setup-api
+    ports:
+      - "8080:8080"
+    volumes:
+      # CRITICAL: Mount the host openfmr-deploy directory so Python can write .env.global
+      - ../:/host_dir
+    environment:
+      - HOST_DIR=/host_dir
+    restart: unless-stopped
+
+  setup-ui:
+    build: frontend
+    container_name: openfmr-setup-ui
+    ports:
+      - "8888:80"
+    depends_on:
+      - setup-api
+    restart: unless-stopped
