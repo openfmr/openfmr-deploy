@@ -14,3 +14,6 @@ offline-images/
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Agent memory/skills files (local only)
+.agents/
