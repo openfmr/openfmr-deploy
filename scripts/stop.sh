@@ -42,6 +42,7 @@ header()  { echo -e "\n${BOLD}${CYAN}── $* ──${NC}\n"; }
 
 # ── Directories to stop (reverse startup order) ─────────────────────────────
 STACKS=(
+  "openfmr-portal-ui:Portal Dashboard"
   "openfmr-operations-ui:Operations UI"
   "openfmr-clinical-ui:Clinical UI"
   "openfmr-admin-ui:Admin UI"

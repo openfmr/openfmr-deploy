@@ -23,8 +23,9 @@ $ProjectRoot = (Resolve-Path "$ScriptDir\..").Path
 # ── Load global environment variables ────────────────────────────────────────
 $EnvFile = Join-Path $ProjectRoot ".env.global"
 if (-not (Test-Path $EnvFile)) {
-    Write-Host "[FATAL]  .env.global not found at $EnvFile" -ForegroundColor Red
-    exit 1
+    Write-Host "[WARN]    .env.global not found. Redirecting to Setup Wizard..." -ForegroundColor Yellow
+    & "$ProjectRoot\setup.ps1"
+    exit $LASTEXITCODE
 }
 
 # ── Color helpers ────────────────────────────────────────────────────────────
@@ -45,12 +46,12 @@ $NetworkName = "openfmr_global_net"
 ###############################################################################
 Write-Header "Step 1/4 - External Docker Network"
 
-$NetworkExists = docker network inspect $NetworkName 2>$null
-if ($LASTEXITCODE -eq 0) {
+$NetworkExists = docker network ls -q -f name="^${NetworkName}$"
+if ($NetworkExists) {
     Write-Warn "Network '$NetworkName' already exists - reusing."
 }
 else {
-    docker network create $NetworkName
+    docker network create $NetworkName | Out-Null
     Write-Ok "Created Docker network '$NetworkName'."
 }
 
@@ -106,6 +107,7 @@ foreach ($Module in $Modules) {
 Write-Header "Step 4/4 - User Interfaces"
 
 $UIs = @(
+    @{ Dir = "openfmr-portal-ui";     Label = "Portal Dashboard" }
     @{ Dir = "openfmr-admin-ui";      Label = "Admin UI" }
     @{ Dir = "openfmr-clinical-ui";   Label = "Clinical UI" }
     @{ Dir = "openfmr-operations-ui"; Label = "Operations UI" }
@@ -133,9 +135,14 @@ Write-Host "=======================================================" -Foreground
 Write-Host "   OpenFMR - All services are up!" -ForegroundColor Green
 Write-Host "=======================================================" -ForegroundColor Green
 Write-Host ""
+Write-Host "  >>> DASHBOARD    ->  " -NoNewline; Write-Host "http://localhost:4000" -ForegroundColor Yellow
+Write-Host ""
+Write-Host "  Admin UI         ->  " -NoNewline; Write-Host "http://localhost:8000" -ForegroundColor Cyan
+Write-Host "  Clinical UI      ->  " -NoNewline; Write-Host "http://localhost:3000" -ForegroundColor Cyan
+Write-Host "  Operations UI    ->  " -NoNewline; Write-Host "http://localhost:3001" -ForegroundColor Cyan
 Write-Host "  OpenHIM Console  ->  " -NoNewline; Write-Host "http://localhost:9000" -ForegroundColor Cyan
 Write-Host "  OpenHIM API      ->  " -NoNewline; Write-Host "https://localhost:8085" -ForegroundColor Cyan
-Write-Host "  Keycloak         ->  " -NoNewline; Write-Host "https://localhost:8443" -ForegroundColor Cyan
+Write-Host "  Keycloak         ->  " -NoNewline; Write-Host "http://localhost:8180" -ForegroundColor Cyan
 Write-Host "  HAPI FHIR        ->  " -NoNewline; Write-Host "http://localhost:8080" -ForegroundColor Cyan
 Write-Host ""
 Write-Host "  Run " -NoNewline; Write-Host ".\scripts\stop.ps1" -ForegroundColor White; Write-Host " to tear everything down."

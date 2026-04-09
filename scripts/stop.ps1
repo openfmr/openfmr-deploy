@@ -35,6 +35,7 @@ function Write-Header  { param([string]$Msg) Write-Host "`n-- $Msg --`n" -Foregr
 
 # ── Directories to stop (reverse startup order) ─────────────────────────────
 $Stacks = @(
+    @{ Dir = "openfmr-portal-ui";     Label = "Portal Dashboard" }
     @{ Dir = "openfmr-operations-ui"; Label = "Operations UI" }
     @{ Dir = "openfmr-clinical-ui";   Label = "Clinical UI" }
     @{ Dir = "openfmr-admin-ui";      Label = "Admin UI" }
@@ -89,9 +90,9 @@ foreach ($Stack in $Stacks) {
 if ($RemoveNetwork) {
     Write-Header "Removing Docker Network"
 
-    $NetworkExists = docker network inspect $NetworkName 2>$null
-    if ($LASTEXITCODE -eq 0) {
-        docker network rm $NetworkName
+    $NetworkExists = docker network ls -q -f name="^${NetworkName}$"
+    if ($NetworkExists) {
+        docker network rm $NetworkName | Out-Null
         Write-Ok "Removed network '$NetworkName'."
     }
     else {

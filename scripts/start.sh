@@ -130,6 +130,7 @@ done
 header "Step 4/4 · User Interfaces"
 
 UIS=(
+  "openfmr-portal-ui:Portal Dashboard"
   "openfmr-admin-ui:Admin UI"
   "openfmr-clinical-ui:Clinical UI"
   "openfmr-operations-ui:Operations UI"
@@ -161,9 +162,14 @@ echo -e "${GREEN}═════════════════════
 echo -e "${GREEN}   OpenFMR — All services are up!${NC}"
 echo -e "${GREEN}═══════════════════════════════════════════════════════${NC}"
 echo ""
+echo -e "  ${YELLOW}>>> DASHBOARD    →  http://localhost:4000${NC}"
+echo ""
+echo -e "  Admin UI         →  ${CYAN}http://localhost:8000${NC}"
+echo -e "  Clinical UI      →  ${CYAN}http://localhost:3000${NC}"
+echo -e "  Operations UI    →  ${CYAN}http://localhost:3001${NC}"
 echo -e "  OpenHIM Console  →  ${CYAN}http://localhost:9000${NC}"
 echo -e "  OpenHIM API      →  ${CYAN}https://localhost:8085${NC}"
-echo -e "  Keycloak         →  ${CYAN}https://localhost:8443${NC}"
+echo -e "  Keycloak         →  ${CYAN}http://localhost:8180${NC}"
 echo -e "  HAPI FHIR        →  ${CYAN}http://localhost:8080${NC}"
 echo ""
 echo -e "  Run ${BOLD}scripts/stop.sh${NC} to tear everything down."

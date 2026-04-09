@@ -14,6 +14,10 @@ $ProjectRoot = $ScriptDir
 $EnvFile     = Join-Path $ProjectRoot ".env.global"
 
 $ModuleDirs = @(
+    "openfmr-portal-ui"
+    "openfmr-operations-ui"
+    "openfmr-clinical-ui"
+    "openfmr-admin-ui"
     "openfmr-core"
     "openfmr-module-cr"
     "openfmr-module-hfr"
@@ -51,6 +55,10 @@ $RestModules = @(
     "openfmr-module-hwr"
     "openfmr-module-ts"
     "openfmr-module-shr"
+    "openfmr-admin-ui"
+    "openfmr-clinical-ui"
+    "openfmr-operations-ui"
+    "openfmr-portal-ui"
 )
 
 foreach ($Dir in $RestModules) {

@@ -1,10 +1,14 @@
 # Ignore cloned sub-repositories
 openfmr-*/
+!openfmr-portal-ui/
 
 # Ignore offline images
 offline-images/
 *.tar
 *.tar.gz
+
+# Logs
+*.log
 
 # OS generated files
 .DS_Store

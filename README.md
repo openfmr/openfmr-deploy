@@ -26,6 +26,7 @@ openfmr-deploy/
 ├── offline-tools/
 │   └── save-images.sh / save-images.ps1  ← Export Docker images for USB
 │
+├── openfmr-portal-ui/            ← Central Dashboard (start here!)
 ├── openfmr-core/                 ← (cloned) Databases, OpenHIM, Keycloak
 ├── openfmr-module-cr/            ← (cloned) Client Registry
 ├── openfmr-module-hfr/           ← (cloned) Health Facility Registry
@@ -94,6 +95,8 @@ bash scripts/start.sh
 .\scripts\start.ps1
 ```
 
+> **First-time Setup Note:** If you run the start script and your `.env.global` file is missing, the script will automatically redirect to the **Setup Wizard** instead of throwing an error. You can navigate to `http://localhost:8888` to securely configure your credentials, after which you should run the start script again.
+
 Services start in dependency order:
 
 1. **External network** `openfmr_global_net` is created.
@@ -103,12 +106,18 @@ Services start in dependency order:
 
 Once complete, you'll see a summary of URLs:
 
-| Service          | URL                          |
-|------------------|------------------------------|
-| OpenHIM Console  | http://localhost:9000        |
-| OpenHIM API      | https://localhost:8085       |
-| Keycloak         | https://localhost:8443       |
-| HAPI FHIR        | http://localhost:8080        |
+| Service              | URL                          |
+|----------------------|------------------------------|
+| **Dashboard Portal** | **http://localhost:4000**     |
+| Admin UI             | http://localhost:8000        |
+| Clinical UI          | http://localhost:3000        |
+| Operations UI        | http://localhost:3001        |
+| OpenHIM Console      | http://localhost:9000        |
+| OpenHIM API          | https://localhost:8085       |
+| Keycloak             | http://localhost:8180        |
+| HAPI FHIR            | http://localhost:8080        |
+
+> **Creating Accounts:** OpenFMR uses Keycloak for centralized authentication. To log into the Clinical or Admin UIs, first navigate to the **Keycloak admin console** (`https://localhost:8443`) and log in using the `KEYCLOAK_ADMIN` credentials you defined during the Setup Wizard. From there, you can create new users and assign them appropriate roles.
 
 ### 4 · Stop the HIE
 
@@ -227,6 +236,26 @@ Key variable groups:
 | Core wait time          | `CORE_WAIT_SECONDS` env var (default 30s)                     |
 | Docker images to export | `offline-tools/save-images.sh` (or `.ps1`) → `IMAGES`        |
 | Network name            | `.env.global` → `OPENFMR_NETWORK`                            |
+
+---
+
+## Clinical UI Customization
+
+The OpenFMR Clinical UI features a dynamic theming system and a semantic form builder that can be heavily customized by practitioners or administrators.
+
+### Theming System
+The Clinical UI leverages CSS Custom Properties for robust dynamically-swappable themes. By default, it includes `default` (Green), `blue`, and `rose` themes. 
+
+To create and add a new theme:
+1. Open `openfmr-clinical-ui/src/index.css`.
+2. Append a new class (e.g. `.theme-emerald`) inside the `@layer base` block defining all numeric `primary-*` color variables.
+3. Open `openfmr-clinical-ui/src/components/ThemeSwitcher.tsx` and add your new theme option to the dropdown.
+
+### Dynamic Form Builder
+The Application ships with a built-in JSON Form Builder inside the Clinical UI (`http://localhost:3000`). Practitioners can visually build forms (Text, Select, Number, Date inputs), set validation rules, and construct Semantic JSON Form Schemas.
+
+- Forms are built strictly according to a localized JSON schema and mapped natively into Tailwind.
+- Click "Dynamic Forms" to view the renderer which natively honors active theme variations for dynamically generated inputs.
 
 ---
 

@@ -1,0 +1,15 @@
+services:
+  openfmr-portal-ui:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: openfmr-portal-ui
+    restart: unless-stopped
+    ports:
+      - "${PORTAL_PORT:-4000}:80"
+    networks:
+      - openfmr_global_net
+
+networks:
+  openfmr_global_net:
+    external: true
